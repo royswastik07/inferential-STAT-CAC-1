@@ -1,0 +1,112 @@
+---
+title: "CAC 1"
+author: "Abin Roy, Debolina Chatterjee, Siddhartha Sinha, Swastik Roy"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+``` 
+
+# AIM: TO FIND SAMPLING DISTRIBUTION AND STANDARD ERROR OF LOAN_DEFAULT_PREDICTION.
+
+# IMPORTING THE DATASET:
+```{r}
+library(readxl)
+CAC_1_DATASET <- read_excel("C:/Users/DEBOLINA/OneDrive/Desktop/INFERENTIAL  STAT/CAC 1 DATASET.xlsx")
+View(CAC_1_DATASET)
+Data <- CAC1_DATASET
+```
+Here we have imported the data set from Microsoft Excel.
+
+
+# DEFINING THE POPULATION:
+```{r}
+population <- Data$`Annual Salary`
+```
+Here we have shown the population of our target variable "Annual Salary".
+
+
+# MEAN OF THE POPULATION:
+```{r}
+mean(population)
+```
+Here we can see the mean of our target variable "Annual Salary" is 402203.8
+
+
+# SD OF THEPOPULATION:
+```{r}
+sd(population)
+```
+Here we can see the sd of our target variable "Annual Salary" is 160039.7.
+
+A standard deviation close to zero indicates that data points are close to the mean. Here,the standard deviation obtained is 160039.7, which indicates that the data points are not so close to mean.
+
+
+# TAKING SAMPLE SIZE OF 3000
+```{r}
+sample_without <- sample(population,3000,replace = FALSE)
+sample_with <- sample(population,3000,replace = TRUE)
+```
+Here we have taken the sample size of 3000 in both without replacement and with replacement method. 
+
+# MEAN OF THE SAMPLE WITHOUT AND WITH REPALCEMENT
+```{r}
+mean(sample_without)
+mean(sample_with)
+```
+Here we have found the mean of our target variable "Annual Salary" in both without replacement and with replacement procedure.
+
+# SD OF THE SAMPLE WITHOUT AND WITH REPLACEMENT:
+```{r}
+sd(sample_without)
+sd(sample_with)
+```
+Here we have found the sd of our target variable "Annual Salary" in both without replacement and with replacement procedure.
+
+From the 1st sample we have seen that the sample mean varies from the population mean and the standard deviation increases for the 1st sample as compared to the population standard deviation.
+
+# SAMPLING DISTRIBUTION OF WITHOUT AND WITH REPLACEMENT:
+```{r}
+samp_dist_without <- replicate(1000,mean(sample(population,3000,replace = FALSE)))
+samp_dist_with <- replicate(1000,mean(sample(population,3000,replace = TRUE)))
+                               
+```
+Here we have the sampling distribution in both without and with replacement procedure in 1000 replications.
+
+# HISTOGRAM OF SAMPLING DISTRIBUTION WITHOUT REPLACEMENT:
+```{r}
+hist(samp_dist_without,main = "HISTOGRAM OF SRSWOR",xlab= "Annual Salary",col = "pink")
+```
+Here we tried to visualize the sampling distribution of without replacement procedure with 1000 replicates in a histogram.
+
+# HISTOGRAM OF SAMPLING DISTRIBUTION WITH REPLACEMENT:
+```{r}
+hist(samp_dist_with,main = "HISTOGRAM OF SRSWR",xlab="Anuual Salary",col ="violet")
+```
+Here we tried to visualize the sampling distribution of with replacement procedure with 1000 replicates in a histogram.
+
+# VARIANCE OF THE SAMPLING DISTRIBUTION:
+```{r}
+var(samp_dist_without)
+var(samp_dist_with)
+```
+
+Here we have found the variance of sampling distribution of our target variable "Annual Salary" in both without replacement and with replacement procedure.
+
+# SD OF THE SAMPLING DISTRIBUTION:
+```{r}
+sd(samp_dist_without)
+sd(samp_dist_with)
+```
+Here we have found the sd of sampling distribution of our target variable "Annual Salary" in both without replacement and with replacement procedure.
+
+# STANDARD ERROR:
+```{r}
+(sd(sample_without)/sqrt(3000))
+(sd(sample_with)/sqrt(3000))
+```
+Here we have found the se of our target variable "Annual Salary" in without replacement and with replacement procedure.
+
+
